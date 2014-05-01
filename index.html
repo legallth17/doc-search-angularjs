@@ -16,7 +16,7 @@
                           {year:'2012', month:'02', day: '11', name:'releve bpvf fevrier 2012'},
                           {year:'2013', month:'01', day: '13', name:'releve bpvf janvier 2013'}];
       $scope.nameCriteria='';
-      $scope.name_filter= function(value) {
+      $scope.nameFilter= function(value) {
         var words = $scope.nameCriteria.split(' ');
         for(var i=0;i<words.length;i++) {
           if( value.name.indexOf(words[i]) == -1) return false;
@@ -34,7 +34,7 @@
   Month: <input ng-model="searchDate.month">
   <table id="searchTextResults">
     <tr><th>date</th><th>Name</th></tr>
-    <tr ng-repeat="doc in docs | filter:name_filter | filter:searchDate">
+    <tr ng-repeat="doc in docs | filter:nameFilter | filter:searchDate">
       <td>{{doc.day}}/{{doc.month}}/{{doc.year}}</td>
       <td>{{doc.name}}</td>
     </tr>
