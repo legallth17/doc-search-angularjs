@@ -7,7 +7,8 @@
 
   <script src="lib/angular/angular.js"></script>
   <script>
-    function myController($scope) {
+    angular.module('myModule',[])
+	.controller('myController',['$scope',function ($scope) {
       $scope.docs=[{year:'2012', month:'04', day: '05', name:'facture edf avril 2012'},
                           {year:'2014', month:'01', day: '16', name:'facture gaz janvier 2014'},
                           {year:'2014', month:'02', day: '12', name:'facture gaz fevrier 2014'},
@@ -23,12 +24,12 @@
         }
         return true;
       };
-    }
+    }]);
   </script>
 
   
 </head>
-<body ng-app="" ng-controller="myController">
+<body ng-app="myModule" ng-controller="myController">
   Name: <input ng-model="docNameCriteria">
   Year: <input ng-model="searchDate.year">
   Month: <input ng-model="searchDate.month">
