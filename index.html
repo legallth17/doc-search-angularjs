@@ -7,35 +7,46 @@
 
   <script src="lib/angular/angular.js"></script>
   <script>
+    function match(doc, search) {
+        if( doc.year.indexOf(search.year)   != 0) return false;
+        if( doc.month.indexOf(search.month) != 0) return false;
+        var words = search.name.split(' ');
+        for(var i=0;i<words.length;i++) {
+            if( doc.name.indexOf(words[i]) == -1) return false;
+        }
+        return true;
+    }
     angular.module('myModule',[])
-	.controller('myController',['$scope',function ($scope) {
-      $scope.docs=[{year:'2012', month:'04', day: '05', name:'facture edf avril 2012'},
+	    .controller('myController',['$scope',function ($scope) {
+            $scope.docs=[{year:'2012', month:'04', day: '05', name:'facture edf avril 2012'},
                           {year:'2014', month:'01', day: '16', name:'facture gaz janvier 2014'},
                           {year:'2014', month:'02', day: '12', name:'facture gaz fevrier 2014'},
                           {year:'2014', month:'02', day: '20', name:'facture elagage'},
                           {year:'2012', month:'04', day: '15', name:'facture ramonage'},
                           {year:'2012', month:'02', day: '11', name:'releve bpvf fevrier 2012'},
                           {year:'2013', month:'01', day: '13', name:'releve bpvf janvier 2013'}];
-      $scope.docNameCriteria='';
-      $scope.docNameFilter= function(doc) {
-        var words = $scope.docNameCriteria.split(' ');
-        for(var i=0;i<words.length;i++) {
-          if( doc.name.indexOf(words[i]) == -1) return false;
-        }
-        return true;
-      };
-    }]);
+            $scope.search = { name:'', year:'', month:'' };
+        }])
+	    .filter('docFilter',function() {
+            return function(input, search) {
+                output = [];
+                for( var i=0;i<input.length;i++) {
+                    if( match(input[i], search)) output.push(input[i]);
+                }
+                return output;
+            };
+	    });
   </script>
 
   
 </head>
 <body ng-app="myModule" ng-controller="myController">
-  Name: <input ng-model="docNameCriteria">
-  Year: <input ng-model="searchDate.year">
-  Month: <input ng-model="searchDate.month">
+  Name: <input ng-model="search.name">
+  Year: <input ng-model="search.year">
+  Month: <input ng-model="search.month">
   <table id="searchTextResults">
     <tr><th>date</th><th>Name</th></tr>
-    <tr ng-repeat="doc in docs | filter:docNameFilter | filter:searchDate">
+    <tr ng-repeat="doc in docs | docFilter:search">
       <td>{{doc.day}}/{{doc.month}}/{{doc.year}}</td>
       <td>{{doc.name}}</td>
     </tr>
