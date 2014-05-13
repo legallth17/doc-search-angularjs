@@ -35,7 +35,7 @@
   Month: <input ng-model="searchDate.month">
   <table id="searchTextResults">
     <tr><th>date</th><th>Name</th></tr>
-    <tr ng-repeat="doc in docs | filter:docNameFilter | filter:searchDate">
+    <tr ng-repeat="doc in docs | filter:docNameFilter | filter:searchDate | orderBy:['-year','-month', '-day']">
       <td>{{doc.day}}/{{doc.month}}/{{doc.year}}</td>
       <td>{{doc.name}}</td>
     </tr>
