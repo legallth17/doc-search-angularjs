@@ -8,23 +8,23 @@
   <script src="lib/angular/angular.js"></script>
   <script>
     angular.module('myModule',[])
-	.controller('myController',['$scope',function ($scope) {
-      $scope.docs=[{year:'2012', month:'04', day: '05', name:'facture edf avril 2012'},
+        .controller('myController',['$scope',function ($scope) {
+            $scope.docs=[ {year:'2012', month:'04', day: '05', name:'facture edf avril 2012'},
                           {year:'2014', month:'01', day: '16', name:'facture gaz janvier 2014'},
                           {year:'2014', month:'02', day: '12', name:'facture gaz fevrier 2014'},
                           {year:'2014', month:'02', day: '20', name:'facture elagage'},
                           {year:'2012', month:'04', day: '15', name:'facture ramonage'},
                           {year:'2012', month:'02', day: '11', name:'releve bpvf fevrier 2012'},
                           {year:'2013', month:'01', day: '13', name:'releve bpvf janvier 2013'}];
-      $scope.docNameCriteria='';
-      $scope.docNameFilter= function(doc) {
-        var words = $scope.docNameCriteria.split(' ');
-        for(var i=0;i<words.length;i++) {
-          if( doc.name.indexOf(words[i]) == -1) return false;
-        }
-        return true;
-      };
-    }]);
+            $scope.docNameCriteria='';
+            $scope.docNameFilter= function(doc) {
+                var words = $scope.docNameCriteria.split(' ');
+                for(var i=0;i<words.length;i++) {
+                    if( doc.name.indexOf(words[i]) == -1) return false;
+                }
+                return true;
+            };
+        }]);
   </script>
 
   
